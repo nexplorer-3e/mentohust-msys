@@ -32,10 +32,14 @@ int load_libpcap(void) {
 #ifdef MAC_OS
 	char *file[] = {"libpcap.dylib", "libpcap.A.dylib"};
 	int i, count = 2;
+// #elif defined(_WIN64)
+// 	char *file[] = {"wpcap.dll", "packet.dll"};
+// 	int i, count = 1;
 #else
 	char *file[] = {"libpcap.so", "libpcap.so.1", "libpcap.so.1.0", "libpcap.so.0.9", "libpcap.so.0.8"};
 	int i, count = 5;
 #endif
+
 	for (i=0; i<count && !libpcap; i++) {
 		libpcap = dlopen(file[i], RTLD_LAZY);
 		error = dlerror();
